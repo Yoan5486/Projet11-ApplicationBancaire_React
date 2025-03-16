@@ -1,0 +1,19 @@
+phase 1 
+
+
+composant reutilisables la class feature-item
+puis deuxième composant page connecté les transactions (x3)
+redux
+transformer page en react js (actuellement html et css)
+coder css pour réutiliser en page react 
+site responsive 
+
+se connecter avec un token, modifier le nom d'utilisateur (deux connexions possibles) avec une option "resté connecté "
+message d'erreur		
+se deconnecter 
+profil de l'utilisateur accessible lorsque connecté 
+
+
+phase 2 :
+
+documentation swagger voir site exemple et appliquer au cas du projet 
