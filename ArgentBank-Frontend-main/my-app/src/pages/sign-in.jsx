@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/main.css";
+import Header from "../composants/header";
+import Footer from "../composants/footer";
+
+
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,9 +18,12 @@ function SignIn() {
   };
 
   return (
+    <>
+     <Header />
     <main className="main bg-dark">
       <section className="sign-in-content">
-      <h1>Sign In</h1>
+        <i className="fa fa-user-circle"></i>
+        <h1>Sign In</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
@@ -46,6 +53,8 @@ function SignIn() {
         </form>
       </section>
     </main>
+    <Footer />
+    </>
   );
 }
 

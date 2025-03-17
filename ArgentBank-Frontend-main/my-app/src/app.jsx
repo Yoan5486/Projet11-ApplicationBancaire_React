@@ -6,7 +6,7 @@ import SignIn from "./pages/sign-in";
 import User from "./pages/user";
 import "./css/main.css";
 
-function App() {
+const App = () => {
   return (
       <Router>
         <Routes>

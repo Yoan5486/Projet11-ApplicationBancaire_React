@@ -13,6 +13,12 @@ body {
   min-height: 100vh;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .main {
   flex: 1;
 }
@@ -159,7 +165,7 @@ body {
 
 .sign-in-button {
   display: block;
-  width: 100%;
+  width: 252px;
   padding: 8px;
   font-size: 1.1rem;
   font-weight: bold;
@@ -167,6 +173,8 @@ body {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  text-decoration: underline;
+  border: 0; 
 }
 
 .sign-in-content {
