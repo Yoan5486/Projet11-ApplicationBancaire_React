@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AccountItem from "./AccountItem"; 
-import "../styles/main.css";
+import AccountItem from "../composants/account-item"; 
+import "../css/main.css";
 
     const sharedAccounts = [
         {

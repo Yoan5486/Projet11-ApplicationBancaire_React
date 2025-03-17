@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/main.css";
-import userIcon from "../img/user-icon.webp";
-
+import "../css/main.css";
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +16,6 @@ function SignIn() {
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
-      <img className="sign-in-icon" src={userIcon} alt="User Icon" />
       <h1>Sign In</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
