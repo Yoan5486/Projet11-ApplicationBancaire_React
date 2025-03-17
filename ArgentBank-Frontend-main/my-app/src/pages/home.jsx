@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import "../css/main.css";
 import FeatureItem from "../composants/feature-item";
 import logo from "../img/argentBankLogo.webp";
-import iconChat from "../img/icon-chat.webp";
-import iconMoney from "../img/icon-money.webp";
-import iconSecurity from "../img/icon-security.webp";
+
 
 
 const Home = () => {
@@ -39,20 +37,21 @@ const Home = () => {
         </div>
         <section className="features">
           <h2 className="sr-only">Features</h2>
+          
           <FeatureItem
-            icon={iconChat}
+            icon="icon-chat"
             title="You are our #1 priority"
             description="Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes."
           />
           <FeatureItem
-            icon={iconMoney}
+            icon="icon-money"
             title="More savings means higher rates"
             description="The more you save with us, the higher your interest rate will be!"
           />
           <FeatureItem
-            icon={iconSecurity}
+            icon="icon-security"
             title="Security you can trust"
-            description="We use top-of-the-line encryption to make sure your data and money is always safe."
+            description="We use top of the line encryption to make sure your data and money is always safe."
           />
         </section>
       </main>
