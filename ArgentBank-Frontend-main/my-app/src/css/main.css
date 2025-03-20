@@ -282,21 +282,65 @@ body {
   padding: 10px;
 }
 
-.edit-username-form {
+.edit-user-form {
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.edit-user-form h2 {
+  color: white;
+}
+
+.direction-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.edit-user-form label {
+  display: block;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: left;
+  width: 100%;
+}
+
+.edit-user-form input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.edit-user-form input:disabled {
+  background: #ccc;
+  color: #665;
+}
+
+.edit-save-buttons {
+  display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
-.edit-username-form input {
-  padding: 5px;
-  font-size: 1rem;
-}
-
-.edit-username-form button {
-  padding: 5px 10px;
+.save-btn, .cancel-btn {
+  background: #00bc77;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
 }
+
 
 .header {
   color: #fff;

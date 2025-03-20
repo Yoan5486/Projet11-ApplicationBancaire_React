@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, updateUsername, checkAuth } from "./auth-slice";
+import { logout, checkAuth } from "./auth-slice";
 import logo from "../img/argentBankLogo.webp";
 
 const Header = () => {
@@ -10,8 +10,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const isUserPage = location.pathname === "/user";
-  const [isEditing, setIsEditing] = useState(false);
-  const [newUsername, setNewUsername] = useState(user?.firstName || "");
 
   useEffect(() => {
     dispatch(checkAuth());
@@ -24,18 +22,6 @@ const Header = () => {
   const handleLogoClick = () => {
     if (isAuthenticated) {
       handleLogout();
-    }
-  };
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleSaveUsername = (e) => {
-    e.preventDefault();
-    if (newUsername.trim() !== "") {
-      dispatch(updateUsername(newUsername));
-      setIsEditing(false);
     }
   };
 
@@ -52,22 +38,9 @@ const Header = () => {
       <div>
         {isAuthenticated ? (
           <>
-            {isEditing ? (
-              <form onSubmit={handleSaveUsername} className="edit-username-form">
-                <input
-                  type="text"
-                  value={newUsername}
-                  onChange={(e) => setNewUsername(e.target.value)}
-                  required
-                />
-                <button type="submit">Save</button>
-                <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-              </form>
-            ) : (
-              <a className="main-nav-item" onClick={handleEditClick} style={{ cursor: "pointer" }}>
+              <a className="main-nav-item">
                 <i className="fa fa-user-circle"></i> {user.firstName + " "} {/* le dire au mentor,pas normal ce genre de trucs */}
               </a>
-            )}
             <Link className="main-nav-item" to="/" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i> Sign Out
             </Link>
