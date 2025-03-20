@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { login, checkAuth} from "../composants/auth-slice";
+import { login} from "../composants/auth-slice";
 import "../css/main.css";
 import Header from "../composants/header";
 import Footer from "../composants/footer";
@@ -14,10 +14,6 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-
-  useEffect(() => {
-    dispatch(checkAuth()); 
-  }, [dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
