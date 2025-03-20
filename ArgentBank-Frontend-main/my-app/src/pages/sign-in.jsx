@@ -1,21 +1,31 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { login, checkAuth} from "../composants/auth-slice";
 import "../css/main.css";
 import Header from "../composants/header";
 import Footer from "../composants/footer";
 
 
-function SignIn() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+const SignIn = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated, error } = useSelector((state) => state.auth);
 
-  const handleSubmit = (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  useEffect(() => {
+    dispatch(checkAuth()); 
+  }, [dispatch]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ici, tu peux gérer l'authentification
-    console.log("Username:", username, "Password:", password);
-    navigate("/user");
+    dispatch(login  ({ email, password, rememberMe }));
   };
+  if (isAuthenticated) {
+    return <Navigate to="/user" />;
+  }
 
   return (
     <>
@@ -24,14 +34,15 @@ function SignIn() {
       <section className="sign-in-content">
         <i className="fa fa-user-circle"></i>
         <h1>Sign In</h1>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail (e.target.value)}
               required
             />
           </div>
@@ -46,7 +57,8 @@ function SignIn() {
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input type="checkbox" id="remember-me"  checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)} />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <button type="submit" className="sign-in-button">Sign In</button>

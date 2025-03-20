@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React from "react"
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";;
 import AccountItem from "../composants/account-item"; 
 import "../css/main.css";
+import Header from "../composants/header";
+import Footer from "../composants/footer";
 
-    const sharedAccounts = [
+const User = () => {
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  if (!isAuthenticated) {
+    return <Navigate to="/sign-in" />;
+  }
+    const Accounts = [
         {
           id: 1,
           title: "Argent Bank Checking (x8349)",
@@ -23,39 +33,19 @@ import "../css/main.css";
         },
       ];
 
-      const users = [
-        {
-          id: 1,
-          firstName: "Tony",
-          lastName: "Stark",
-          email: "tony@stark.com",
-          password: "password123",
-          accounts: sharedAccounts, // Référence aux mêmes comptes
-        },
-        {
-          id: 2,
-          firstName: "Steve",
-          lastName: "Rogers",
-          email: "steve@rogers.com",
-          password: "password456",
-          accounts: sharedAccounts, // Même référence ici
-        },
-      ];
-    
-      function User() {
-        const [selectedUser] = useState(users[0]);
-
   return (
+    <>
+     <Header />
     <main className="main bg-dark">
       <div className="header">
         <h1>
-          Welcome back<br />{selectedUser.firstName} {selectedUser.lastName}!
+          Welcome back<br />{user.firstName} {user.lastName}!
         </h1>
         <button className="edit-button">Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
 
-      {selectedUser.accounts.map((account) => (
+      {Accounts.map((account) => (
         <AccountItem
         key={account.id}
         title={account.title}
@@ -64,6 +54,8 @@ import "../css/main.css";
       />
       ))}
     </main>
+    <Footer />
+    </>
   );
 }
 

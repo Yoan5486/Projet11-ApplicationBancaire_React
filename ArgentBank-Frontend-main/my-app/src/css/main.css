@@ -53,7 +53,7 @@ body {
   color: #2c3e50;
 }
 
-.main-nav-item i {
+.main-nav:not(.user-nav) .main-nav-item i {
   margin-right: 4.45px;
 }
 
@@ -177,6 +177,17 @@ body {
   border: 0; 
 }
 
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+  background-color: #ffdddd;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid red;
+}
+
 .sign-in-content {
   box-sizing: border-box;
   background-color: white;
@@ -269,6 +280,22 @@ body {
   color: #fff;
   font-weight: bold;
   padding: 10px;
+}
+
+.edit-username-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-username-form input {
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.edit-username-form button {
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .header {
