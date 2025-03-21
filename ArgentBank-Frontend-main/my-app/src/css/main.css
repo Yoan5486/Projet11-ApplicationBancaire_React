@@ -283,7 +283,7 @@ body {
 }
 
 .edit-user-form {
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   max-width: 300px;
   margin: auto;
@@ -291,7 +291,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
 }
 
 .edit-user-form h2 {
@@ -306,14 +306,15 @@ body {
 .edit-user-form label {
   display: block;
   color: white;
-  font-weight: bold;
+  font-size: 13px;
   margin-bottom: 5px;
   text-align: left;
   width: 100%;
 }
 
 .edit-user-form input {
-  width: 100%;
+  width: 180%;
+  height: 10px;
   padding: 8px;
   border: none;
   margin-bottom: 10px;
@@ -327,8 +328,8 @@ body {
 .edit-save-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 30px;
+  margin-left: 30px;
 }
 
 .save-btn, .cancel-btn {
@@ -336,7 +337,6 @@ body {
   color: white;
   padding: 10px 15px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
 }
