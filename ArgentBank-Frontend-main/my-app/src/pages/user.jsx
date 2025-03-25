@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import AccountItem from "../composants/account-item";
-import { checkAuth, updateUsername } from "../composants/auth-slice";
+import Transactions from "../data/account-item.json"
+import { fetchUserProfile, updateUserProfile } from "../composants/auth-slice";
 import "../css/main.css";
 import Header from "../composants/header";
 import Footer from "../composants/footer";
@@ -10,18 +11,12 @@ import Footer from "../composants/footer";
 const User = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [newUsername, setNewUsername] = useState(user?.firstName || "");
 
   useEffect(() => {
-    dispatch(checkAuth());
-    setIsCheckingAuth(false);
+    dispatch(fetchUserProfile());
   }, [dispatch]);
-
-  if (isCheckingAuth) {
-    return null;
-  }
 
   if (!isAuthenticated) {
     return <Navigate to="/" />;
@@ -30,31 +25,11 @@ const User = () => {
   const handleSaveUsername = (e) => {
     e.preventDefault();
     if (newUsername.trim() !== "") {
-      dispatch(updateUsername(newUsername));
+      dispatch(updateUserProfile({ firstName: newUsername, lastName: user.lastName }));
       setIsEditing(false);
     }
   };
 
-  const Accounts = [
-    {
-      id: 1,
-      title: "Argent Bank Checking (x8349)",
-      amount: "$2,082.79",
-      description: "Available Balance",
-    },
-    {
-      id: 2,
-      title: "Argent Bank Savings (x6712)",
-      amount: "$10,928.42",
-      description: "Available Balance",
-    },
-    {
-      id: 3,
-      title: "Argent Bank Credit Card (x8349)",
-      amount: "$184.30",
-      description: "Current Balance",
-    },
-  ];
 
   return (
     <>
@@ -91,7 +66,7 @@ const User = () => {
           ) : (
             <>
               <h1>
-                Welcome back<br />{user.firstName} {user.lastName}!
+                Welcome back<br />{user?.firstName} {user?.lastName}!
               </h1>
               <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Name</button>
             </>
@@ -99,12 +74,12 @@ const User = () => {
         </div>
         <h2 className="sr-only">Accounts</h2>
 
-        {Accounts.map((account) => (
+        {Transactions.map((data) => (
           <AccountItem
-            key={account.id}
-            title={account.title}
-            amount={account.amount}
-            description={account.description}
+            key={data.id}
+            title={data.title}
+            amount={data.amount}
+            description={data.description}
           />
         ))}
       </main>

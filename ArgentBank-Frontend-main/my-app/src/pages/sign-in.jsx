@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { login} from "../composants/auth-slice";
+import { loginUser, fetchUserProfile } from "../composants/auth-slice";
 import "../css/main.css";
 import Header from "../composants/header";
 import Footer from "../composants/footer";
@@ -10,15 +10,27 @@ import Footer from "../composants/footer";
 const SignIn = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, error } = useSelector((state) => state.auth);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login  ({ email, password, rememberMe }));
+    try {
+
+      const result = await dispatch(loginUser({ email, password, rememberMe })).unwrap();
+      console.log("📥 Réponse complète de l'API Login :", result); 
+      console.log("✅ Token reçu après connexion :", result.token);
+
+      if (result.token) {
+        dispatch(fetchUserProfile()); 
+      }
+    } catch (error) {
+      console.error("Erreur lors de la connexion :", error);
+    }
   };
+
   if (isAuthenticated) {
     return <Navigate to="/user" />;
   }

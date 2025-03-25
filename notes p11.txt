@@ -1,4 +1,4 @@
-phase 1 
-modifier le nom d'utilisateur (deux connexions possibles) avec 	
-phase 2 :
+mise à jour token et name connexion avec api
+rester connecté si appuie sur le logo argent bank si option rester connecté 
+Pseudo et non nom modifié 
 documentation swagger voir site exemple et appliquer au cas du projet 

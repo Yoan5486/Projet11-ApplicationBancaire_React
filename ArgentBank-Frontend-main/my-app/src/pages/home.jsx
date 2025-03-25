@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/main.css";
 import FeatureItem from "../composants/feature-item";
+import Feature from "../data/feature.json"
 import Header from "../composants/header";
 import Footer from "../composants/footer";
 
@@ -20,22 +21,14 @@ const Home = () => {
         </div>
         <section className="features">
           <h2 className="sr-only">Features</h2>
-          
-          <FeatureItem
-            icon="icon-chat"
-            title="You are our #1 priority"
-            description="Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes."
-          />
-          <FeatureItem
-            icon="icon-money"
-            title="More savings means higher rates"
-            description="The more you save with us, the higher your interest rate will be!"
-          />
-          <FeatureItem
-            icon="icon-security"
-            title="Security you can trust"
-            description="We use top of the line encryption to make sure your data and money is always safe."
-          />
+          {Feature.map((item) => (
+            <FeatureItem
+              key={item.id}
+              icon={item.icon}
+              title={item.title}
+              description={item.description}
+            />
+          ))}
         </section>
       </main>
       <Footer />

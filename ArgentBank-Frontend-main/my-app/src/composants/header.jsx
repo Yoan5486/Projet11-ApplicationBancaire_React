@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, checkAuth } from "./auth-slice";
+import { logout, fetchUserProfile } from "./auth-slice";
 import logo from "../img/argentBankLogo.webp";
 
 const Header = () => {
@@ -12,8 +12,11 @@ const Header = () => {
   const isUserPage = location.pathname === "/user";
 
   useEffect(() => {
-    dispatch(checkAuth());
-  }, [dispatch]);
+    if (isAuthenticated && !user) {
+      dispatch(fetchUserProfile());
+    }
+  }, [dispatch, isAuthenticated, user]);
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -39,7 +42,7 @@ const Header = () => {
         {isAuthenticated ? (
           <>
               <a className="main-nav-item">
-                <i className="fa fa-user-circle"></i> {user.firstName + " "} {/* le dire au mentor,pas normal ce genre de trucs */}
+                <i className="fa fa-user-circle"></i> {user?.firstName | "User" + " "}
               </a>
             <Link className="main-nav-item" to="/" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i> Sign Out
