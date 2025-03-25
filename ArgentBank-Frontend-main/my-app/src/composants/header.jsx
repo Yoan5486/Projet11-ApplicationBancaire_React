@@ -42,7 +42,7 @@ const Header = () => {
         {isAuthenticated ? (
           <>
               <a className="main-nav-item">
-                <i className="fa fa-user-circle"></i> {user?.firstName | "User" + " "}
+                <i className="fa fa-user-circle"></i> {user?.firstName || "User" + " "}
               </a>
             <Link className="main-nav-item" to="/" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i> Sign Out

@@ -34,8 +34,10 @@ export const loginUser = createAsyncThunk(
       }
       if (rememberMe) {
         localStorage.setItem("token", token);
+        console.log("✅ Token stocké dans localStorage");
       } else {
         sessionStorage.setItem("token", token);
+        console.log("✅ Token stocké dans sessionStorage");
       }
 
       return { token };
@@ -103,12 +105,15 @@ export const updateUserProfile = createAsyncThunk(
   }
 );
 
+const loadToken = () => {
+    return localStorage.getItem("token") || sessionStorage.getItem("token") || null;
+  };
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    token: null, 
-    isAuthenticated: false,
+    token: loadToken(),
+    isAuthenticated: !!loadToken(),
     user: null,
     error: null,
   },

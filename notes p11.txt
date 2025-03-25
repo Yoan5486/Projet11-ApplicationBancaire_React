@@ -1,4 +1,5 @@
-mise à jour token et name connexion avec api
-rester connecté si appuie sur le logo argent bank si option rester connecté 
-Pseudo et non nom modifié 
+resté connecté si clique sur le logo 
+changement de pseudo mais pas actualisé mais pas changement dans le nom donc progrès
+
+
 documentation swagger voir site exemple et appliquer au cas du projet 
