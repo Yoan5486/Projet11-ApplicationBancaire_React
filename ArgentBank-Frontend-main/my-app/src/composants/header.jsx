@@ -23,9 +23,7 @@ const Header = () => {
     navigate("/");
   }
   const handleLogoClick = () => {
-    if (isAuthenticated) {
-      handleLogout();
-    }
+    navigate("/");
   };
 
   return (

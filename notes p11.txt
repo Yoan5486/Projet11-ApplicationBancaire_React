@@ -1,5 +1,3 @@
-resté connecté si clique sur le logo 
 changement de pseudo mais pas actualisé mais pas changement dans le nom donc progrès
-
 
 documentation swagger voir site exemple et appliquer au cas du projet 

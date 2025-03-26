@@ -13,6 +13,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [hasAttemptedLogin, setHasAttemptedLogin] = useState(false);
 
 
   const handleSubmit = async (e) => {
@@ -24,10 +25,12 @@ const SignIn = () => {
       console.log("✅ Token reçu après connexion :", result.token);
 
       if (result.token) {
-        dispatch(fetchUserProfile()); 
+       await dispatch(fetchUserProfile(result.token)).unwrap(); 
       }
+      setHasAttemptedLogin(false);
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);
+      setHasAttemptedLogin(true);
     }
   };
 
@@ -42,7 +45,7 @@ const SignIn = () => {
       <section className="sign-in-content">
         <i className="fa fa-user-circle"></i>
         <h1>Sign In</h1>
-        {error && <p className="error-message">{error}</p>}
+        {hasAttemptedLogin && error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
