@@ -77,9 +77,9 @@ export const fetchUserProfile = createAsyncThunk(
 
 export const updateUserProfile = createAsyncThunk(
     "auth/updateUserProfile",
-    async ({ firstName, lastName }, { rejectWithValue }) => {
+    async ({ userName }, { getState, rejectWithValue }) => {
         try {
-            const token = localStorage.getItem("token") 
+            const token = localStorage.getItem("token") || getState().auth.token;
 
             if (!token) {
                 throw new Error("Aucun token trouvé");
@@ -87,12 +87,12 @@ export const updateUserProfile = createAsyncThunk(
 
             const response = await axios.put(
                 `${API_BASE_URL}/profile`,
-                { firstName, lastName },
+                { userName },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
-            if (response.data.status !== 0) {
-                throw new Error(response.data.message || "Erreur lors de la mise à jour");
+            if (response.data.status !== 200) {
+                throw new Error(response.data.message || "Erreur de mise à jour");
             }
 
             return response.data.body;

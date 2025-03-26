@@ -12,20 +12,32 @@ const User = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const [isEditing, setIsEditing] = useState(false);
-  const [newUsername, setNewUsername] = useState(user?.firstName || "");
+  const [newUsername, setNewUsername] = useState(user?.userName || "");
 
   useEffect(() => {
-    dispatch(fetchUserProfile());
-  }, [dispatch]);
+    if (!user) {
+      dispatch(fetchUserProfile());
+    }
+  }, [dispatch, user]);
 
   if (!isAuthenticated) {
     return <Navigate to="/" />;
   }
+  const handleEditClick = () => {
+    setNewUsername(""); 
+    setIsEditing(true);
+  };
 
-  const handleSaveUsername = (e) => {
+  const handleSaveUsername = async (e) => {
     e.preventDefault();
-    if (newUsername.trim() !== "") {
-      dispatch(updateUserProfile({ firstName: newUsername, lastName: user.lastName }));
+     if (newUsername.trim() !== "" && newUsername !== user?.userName) {
+      try {
+        await dispatch(updateUserProfile({ userName: newUsername })).unwrap(); 
+        dispatch(fetchUserProfile());
+       
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour du nom d'utilisateur :", error);
+      }
       setIsEditing(false);
     }
   };
@@ -44,6 +56,7 @@ const User = () => {
                   <label>User name:</label>
                   <input
                     type="text"
+                    placeholder={user?.userName || "Enter new username"} 
                     value={newUsername}
                     onChange={(e) => setNewUsername(e.target.value)}
                     required
@@ -68,7 +81,7 @@ const User = () => {
               <h1>
                 Welcome back<br />{user?.firstName} {user?.lastName}!
               </h1>
-              <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Name</button>
+              <button className="edit-button" onClick={handleEditClick}>Edit Name</button>
             </>
           )}
         </div>
