@@ -66,6 +66,9 @@ body {
   margin-right: 0.5rem;
 }
 
+.margin-txt {
+  margin-right: 12.5px;
+}
 .main-nav-item:hover {
   text-decoration: underline;
 }
