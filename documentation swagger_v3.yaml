@@ -1,0 +1,144 @@
+openapi: 3.0.4
+info:
+  title: ArgentBank Transactions API
+  description: API pour gérer les transactions bancaires des utilisateurs.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001/api/v1
+    description: Serveur de développement local
+
+paths:
+  /transactions:
+    get:
+      summary: Récupérer toutes les transactions
+      description: Retourne la liste de toutes les transactions de l'utilisateur authentifié.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Liste des transactions récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transaction"
+        "401":
+          description: Non autorisé
+    post:
+      summary: Créer une nouvelle transaction
+      description: Ajoute une nouvelle transaction au compte de l'utilisateur authentifié.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Transaction"
+      responses:
+        "201":
+          description: Transaction créée avec succès
+        "400":
+          description: Requête invalide
+        "401":
+          description: Non autorisé
+
+  /transactions/{transactionId}:
+    get:
+      summary: Récupérer une transaction spécifique
+      description: Retourne les détails d'une transaction spécifique en fonction de son ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Transaction récupérée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+        "404":
+          description: Transaction non trouvée
+    put:
+      summary: Mettre à jour une transaction
+      description: Permet de modifier la catégorie ou la note d'une transaction spécifique.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  example: "Food"
+                note:
+                  type: string
+                  example: "Achat déjeuner"
+      responses:
+        "200":
+          description: Transaction mise à jour avec succès
+        "400":
+          description: Requête invalide
+        "404":
+          description: Transaction non trouvée
+    delete:
+      summary: Supprimer une transaction
+      description: Supprime une transaction spécifique en fonction de son ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Transaction supprimée avec succès
+        "404":
+          description: Transaction non trouvée
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Argent Bank Checking (x8349)"
+        amount:
+          type: string
+          example: "$2,082.79"
+        description:
+          type: string
+          example: "Available Balance"
+        category:
+          type: string
+          example: "Food"
+        note:
+          type: string
+          example: "Achat déjeuner"
